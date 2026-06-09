@@ -23,6 +23,7 @@ except Exception:
 
 
 APP_NAME = "RestReminder"
+DISPLAY_NAME = "Eye Break Timer"
 RUN_KEY = r"Software\Microsoft\Windows\CurrentVersion\Run"
 MUTEX_NAME = "Global\\WillisRestReminderSingleInstance"
 
@@ -748,7 +749,7 @@ class RestReminderApp:
     def __init__(self) -> None:
         self.settings = load_settings()
         self.root = tk.Tk()
-        self.root.title("Break Reminder")
+        self.root.title(DISPLAY_NAME)
         self.root.minsize(520, 620)
         self.root.resizable(True, True)
 
@@ -813,7 +814,7 @@ class RestReminderApp:
         self.canvas.bind("<Configure>", fit_content_width)
         self.canvas.bind_all("<MouseWheel>", on_mousewheel)
 
-        ttk.Label(frame, text="Break Reminder", font=("Microsoft YaHei UI", 20, "bold")).pack(anchor="w")
+        ttk.Label(frame, text=DISPLAY_NAME, font=("Microsoft YaHei UI", 20, "bold")).pack(anchor="w")
         ttk.Label(frame, textvariable=self.status_var, font=("Microsoft YaHei UI", 11)).pack(anchor="w", pady=(4, 18))
 
         ttk.Label(frame, textvariable=self.time_var, font=("Consolas", 48, "bold")).pack(pady=(0, 12))
@@ -908,7 +909,7 @@ class RestReminderApp:
             pystray.MenuItem("End", lambda: self.call_ui(self.end_timer)),
             pystray.MenuItem("Exit", lambda: self.call_ui(self.quit_app)),
         )
-        self.tray_icon = pystray.Icon("rest_reminder", make_tray_image(), "Break Reminder", menu)
+        self.tray_icon = pystray.Icon("rest_reminder", make_tray_image(), DISPLAY_NAME, menu)
         threading.Thread(target=self.tray_icon.run, daemon=True).start()
 
     def show_float_menu(self, x: int, y: int) -> None:

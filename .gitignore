@@ -4,6 +4,8 @@ __pycache__/
 build/
 dist/
 *.spec
+msix-package/
+store-package/
 
 .venv/
 venv/
